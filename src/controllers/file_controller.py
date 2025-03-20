@@ -3,13 +3,13 @@ import pickle
 import json
 from config import LANGUAGE_EXTENSIONS
 
-class FileManager:
+class FileController:
     BASE_DIR = "LeetCodeSolutions"
 
     @staticmethod
     def _ensure_problem_dir(problem_slug):
         """Ensures that the directory for the problem exists."""
-        problem_dir = os.path.join(FileManager.BASE_DIR, problem_slug)
+        problem_dir = os.path.join(FileController.BASE_DIR, problem_slug)
         os.makedirs(problem_dir, exist_ok=True)
         return problem_dir
 
@@ -30,7 +30,7 @@ class FileManager:
     @staticmethod
     def save_code(problem_slug, language, code):
         """Saves the extracted solution code to a file inside the problem's directory."""
-        problem_dir = FileManager._ensure_problem_dir(problem_slug)
+        problem_dir = FileController._ensure_problem_dir(problem_slug)
         extension = LANGUAGE_EXTENSIONS.get(language, "txt")
         filepath = os.path.join(problem_dir, f"solution.{extension}")
         with open(filepath, "w", newline='',encoding="utf-8") as f:
@@ -39,7 +39,7 @@ class FileManager:
     @staticmethod
     def save_description(problem_slug, title, html_content):
         """Saves the problem description as a markdown file inside the problem's directory."""
-        problem_dir = FileManager._ensure_problem_dir(problem_slug)
+        problem_dir = FileController._ensure_problem_dir(problem_slug)
         filepath = os.path.join(problem_dir, "description.md")
 
         with open(filepath, "w", encoding="utf-8") as f:
@@ -49,7 +49,7 @@ class FileManager:
     @staticmethod
     def save_meta_data(problem_slug, metadata):
         """Saves the problem metadata (runtime, memory, language) as a JSON file inside the problem's directory."""
-        problem_dir = FileManager._ensure_problem_dir(problem_slug)
+        problem_dir = FileController._ensure_problem_dir(problem_slug)
         filepath = os.path.join(problem_dir, "metadata.json")
 
         with open(filepath, "w", encoding="utf-8") as f:

@@ -1,7 +1,7 @@
 import time
 import pyperclip
 from selenium.webdriver.common.by import By
-from storage.file_manager import FileManager
+from controllers.file_controller import FileController
 
 def extract_runtime_details(main_div):
     status_div = main_div.find_element(By.XPATH, "./../div[2]/div/div/div[1]/div[2]") # run + mem
@@ -45,7 +45,7 @@ def extract_leetcode_code(driver):
 
 def scrape_solution(driver, problem_slug):
     driver.get(f"https://leetcode.com/problems/{problem_slug}/submissions/")
-    FileManager.load_cookies(driver, "storage/leetcode_cookies.pkl")
+    FileController.load_cookies(driver, "storage/leetcode_cookies.pkl")
 
     driver.refresh()
     time.sleep(5)
@@ -60,16 +60,18 @@ def scrape_solution(driver, problem_slug):
             time.sleep(5)
 
             extracted_data = extract_leetcode_code(driver)
-            FileManager.save_code(problem_slug, extracted_data['language'], extracted_data['code'])
+            FileController.save_code(problem_slug, extracted_data['language'], extracted_data['code'])
             meta_data = {
                 "runtime": extracted_data['runtime_details']['runtime'],
                 "runtime_percentile": extracted_data['runtime_details']['percentile'],
                 "memory": extracted_data['memory_details']['memory'],
                 "memory_percentile": extracted_data['memory_details']['percentile'],
             }
-            FileManager.save_meta_data(problem_slug, meta_data)
+            FileController.save_meta_data(problem_slug, meta_data)
             print(f"✅ Code saved successfully for {problem_slug}")
-            break
+            return meta_data
     else:
         print(f"No accepted solutions found for {problem_slug}.")
+        return None
+
 
