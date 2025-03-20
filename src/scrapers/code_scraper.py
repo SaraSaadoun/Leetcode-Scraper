@@ -52,7 +52,7 @@ def scrape_solution(driver, problem_slug):
 
     submissions = driver.find_elements(By.CSS_SELECTOR, ".h-full.overflow-auto > *")
 
-    for submission in submissions[:-1]:
+    for i, submission in enumerate(submissions[:-1]):
         status = submission.find_element(By.CSS_SELECTOR, "div > div:nth-of-type(2) > div > div > span").text.strip()
 
         if status == "Accepted":
@@ -60,7 +60,7 @@ def scrape_solution(driver, problem_slug):
             time.sleep(5)
 
             extracted_data = extract_leetcode_code(driver)
-            FileController.save_code(problem_slug, extracted_data['language'], extracted_data['code'])
+            FileController.save_code(problem_slug, i, extracted_data['language'], extracted_data['code'])
             meta_data = {
                 "runtime": extracted_data['runtime_details']['runtime'],
                 "runtime_percentile": extracted_data['runtime_details']['percentile'],

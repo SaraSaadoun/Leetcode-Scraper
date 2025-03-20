@@ -4,7 +4,7 @@ import json
 from config import LANGUAGE_EXTENSIONS
 
 class FileController:
-    BASE_DIR = "LeetCodeSolutions"
+    BASE_DIR = "./../LeetCodeSolutions"
 
     @staticmethod
     def _ensure_problem_dir(problem_slug):
@@ -28,11 +28,11 @@ class FileController:
                     driver.add_cookie(cookie)
 
     @staticmethod
-    def save_code(problem_slug, language, code):
+    def save_code(problem_slug, solution_no, language, code):
         """Saves the extracted solution code to a file inside the problem's directory."""
         problem_dir = FileController._ensure_problem_dir(problem_slug)
         extension = LANGUAGE_EXTENSIONS.get(language, "txt")
-        filepath = os.path.join(problem_dir, f"solution.{extension}")
+        filepath = os.path.join(problem_dir, f"solution{solution_no}.{extension}")
         with open(filepath, "w", newline='',encoding="utf-8") as f:
             f.write(code)
 

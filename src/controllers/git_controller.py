@@ -3,7 +3,7 @@ import subprocess
 
 class GitController:
     """Handles Git operations for tracking new problem directories."""
-    LEETCODE_SOLUTIONS_DIR = "LeetCodeSolutions"
+    LEETCODE_SOLUTIONS_DIR = "./../LeetCodeSolutions"
 
     @staticmethod
     def initialize_repo():
