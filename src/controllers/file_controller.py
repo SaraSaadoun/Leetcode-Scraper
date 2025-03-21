@@ -32,7 +32,7 @@ class FileController:
         """Saves the extracted solution code to a file inside the problem's directory."""
         problem_dir = FileController._ensure_problem_dir(problem_slug)
         extension = LANGUAGE_EXTENSIONS.get(language, "txt")
-        filepath = os.path.join(problem_dir, f"solution{solution_no}.{extension}")
+        filepath = os.path.join(problem_dir, f"solution{solution_no}{extension}")
         with open(filepath, "w", newline='',encoding="utf-8") as f:
             f.write(code)
 
