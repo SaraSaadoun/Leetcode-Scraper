@@ -13,12 +13,11 @@ class GitController:
             print("Initialized a new Git repository.")
 
     @staticmethod
-    def add_and_commit(problem_slug, meta_data):
+    def add_and_commit(path, message):
         """Adds a file to Git tracking and commits it."""
         
         try:
-            subprocess.run(["git", "add", problem_slug], cwd=GitController.LEETCODE_SOLUTIONS_DIR, check=True)
-            message = f"Time: {meta_data['runtime']} ({meta_data['runtime_percentile']}), Space: {meta_data['memory']} ({meta_data['memory_percentile']})"
+            subprocess.run(["git", "add", path], cwd=GitController.LEETCODE_SOLUTIONS_DIR, check=True)
             subprocess.run(["git", "commit", "-m", message], cwd=GitController.LEETCODE_SOLUTIONS_DIR, check=True)
             print("committed successfully..")
             print(message)

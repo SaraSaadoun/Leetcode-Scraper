@@ -28,13 +28,16 @@ class FileController:
                     driver.add_cookie(cookie)
 
     @staticmethod
-    def save_code(problem_slug, solution_no, language, code):
+    def save_code(problem_slug, solution_index, language, code):
         """Saves the extracted solution code to a file inside the problem's directory."""
         problem_dir = FileController._ensure_problem_dir(problem_slug)
+        solution_subdir = os.path.join(problem_dir, f"solution_{solution_index}")
+        os.makedirs(solution_subdir, exist_ok=True)
         extension = LANGUAGE_EXTENSIONS.get(language, "txt")
-        filepath = os.path.join(problem_dir, f"solution{solution_no}{extension}")
+        filepath = os.path.join(solution_subdir, f"solution{extension}")
         with open(filepath, "w", newline='',encoding="utf-8") as f:
             f.write(code)
+        return f"solution_{solution_index}"
 
     @staticmethod
     def save_description(problem_slug, title, html_content):
@@ -47,10 +50,14 @@ class FileController:
             f.write(html_content)
 
     @staticmethod
-    def save_meta_data(problem_slug, metadata):
+    def save_meta_data(problem_slug, solution_index, metadata):
         """Saves the problem metadata (runtime, memory, language) as a JSON file inside the problem's directory."""
         problem_dir = FileController._ensure_problem_dir(problem_slug)
-        filepath = os.path.join(problem_dir, "metadata.json")
+        # ensure solution dir for each solutiion
+        solution_subdir = os.path.join(problem_dir, f"solution_{solution_index}")
+        os.makedirs(solution_subdir, exist_ok=True)
+
+        filepath = os.path.join(solution_subdir, f"metadata.json")
 
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump(metadata, f, indent=4)
