@@ -10,6 +10,7 @@ Automate the process of saving your LeetCode solutions with ease! This scraper *
 ✅ **Stores problem descriptions** in a Markdown file  
 ✅ **Organizes everything** in a directory named after the problem slug  
 ✅ **Commits** automatically using Git after scraping 🎯  
+✅ Choose what to scrape → Select all submissions or just the latest one! 🔄 
 
 ## 📂 Project Structure 
 ``` 
@@ -19,8 +20,7 @@ Automate the process of saving your LeetCode solutions with ease! This scraper *
 │ │ ├── file_controller.py 
 │ │ ├── git_controller.py 
 │ ├── scrapers/ 
-│ │ ├── code_scraper.py 
-│ │ ├── description_scraper.py 
+│ │ ├── scraper.py 
 │ ├── storage/ 
 │ │ ├── leetcode_cookies.pkl 
 │ ├── auth.py 
@@ -40,3 +40,13 @@ pip install -r requirements.txt
 python auth.py
 python main.py --slug problem-slug-here
 ```
+
+### 🔹 Usage Notes:  
+- The `--slug` argument accepts both **problem slugs** (e.g., `two-sum`) and **problem names** (e.g., `"Two Sum"`).  
+- If you want to scrape **all accepted solutions** instead of just the latest one, pass the `--all_submissions` flag:  
+
+```bash
+python main.py --slug problem-slug-here --all_submissions
+```
+
+
