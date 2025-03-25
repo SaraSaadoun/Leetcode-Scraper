@@ -1,9 +1,12 @@
 import os
 import subprocess
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class GitController:
     """Handles Git operations for tracking new problem directories."""
-    LEETCODE_SOLUTIONS_DIR = "./../LeetCodeSolutions"
+    LEETCODE_SOLUTIONS_DIR = os.getenv("LEETCODE_SOLUTIONS_DIR_PATH")
 
     @staticmethod
     def initialize_repo():

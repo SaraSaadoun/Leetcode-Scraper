@@ -1,10 +1,14 @@
 import os
 import pickle
 import json
-from config import LANGUAGE_EXTENSIONS
+from utils.config import LANGUAGE_EXTENSIONS
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class FileController:
-    BASE_DIR = "./../LeetCodeSolutions"
+    BASE_DIR = os.getenv("LEETCODE_SOLUTIONS_DIR_PATH")
 
     @staticmethod
     def _ensure_problem_dir(problem_slug):
